@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+    <style>
+          .bgg:hover  {
+            background-image: url('https://i.pinimg.com/originals/e2/8b/a0/e28ba024a7ce5adf02c1893cd6488b2e.gif');
+            background-position:center right;
+            background-size: contain;
+            background-repeat: no-repeat;
+            transition: all 0.8s ease-in-out;
+          }
+          .bgg{
+            transition: background-image  0.8s ease-in-out;
+          }
+          /* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: #8f54a0 #ffffff;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 2px;
+    height: 1px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #f7ecff89;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #16001c82;
+    border-radius: 10px;
+    border: 1px solid #2600309a;
+  }
+    </style>
+</head>
+
+<body>
+    <div class="flex md:px-20 px-8 py-3 justify-between items-center shadow-md z-50 bg-black text-white border-b border-white fixed w-full">
+        <a href="{% url 'home' %}" class="text-lg tracking-wide">Chronicles</a>
+        <div class="md:flex hidden justify-center gap-6 items-center">
+            {% if user.is_authenticated %}
+            <a href="{% url 'viewmyposts' %}">Welcome, {{ user.username }} !</a>
+            <a href="{% url 'create' %}">Create</a>
+            <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}">Register</a>
+            {% endif %}
+
+        </div>
+    </div>
+
+    {% block content %}
+    {% endblock content %}
+
+</body>
+
+</html>

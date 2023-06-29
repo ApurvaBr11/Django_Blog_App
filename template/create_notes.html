@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="flex justify-center flex-col gap-4 items-center h-screen bg-white text-black">
+    <form action="" class="w-[40%] h-[70%] " method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <div class="my-3">
+            <input type="submit" name="" class="px-4 py-1 bg-black text-white rounded cursor-pointer"  id="" value="Create">
+        </div>
+    </form>
+</div>
+{% endblock content %}

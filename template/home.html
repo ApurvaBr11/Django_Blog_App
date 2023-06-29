@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="pb-12 min-h-screen bg-white text-black">
+    <div
+        class="flex justify-start px-12 items-center gap-12 bg-white text-black pt-20 overflow-x-scroll md:mx-8 mx-0 pb-4 sticky top-0 ">
+        <div class="sticky bg-white text-black top-0 -left-12 pr-4">
+            <form class="flex gap-4" role="search" action={% url 'search' %}>
+                <input class="w-60 px-4 py-1 border rounded" type="search" name="search" placeholder="Search" size="60"
+                    aria-label="Search">
+                <button class="btn btn-dark" type="submit">Search</button>
+            </form>
+        </div>
+        {%for cat in categories %}
+        <a href="/viewcategorie/{{cat.id}}">{{cat.name}}</a>
+        {% endfor %}
+    </div>
+    <div class="flex md:flex-row flex-col">
+        <div class="md:w-[75%] w-[100%]  pt-8  flex flex-col  gap-6 px-3 md:px-12 ">
+            {% if notes %}
+            {% for note in notes %}
+            <div class="flex md:flex-row flex-col gap-4 shadow-md hover:bg-[#faf7fb]  bgg">
+                <img class="md:w-[30%] w-[90%] m-3" src="{{ note.image.url }}" alt="">
+                <a href="/view/{{note.id}}" class=" px-4 pt-4 p-2 rounded space-y-1  text-black">
+                    <p class="text-2xl font-bold">{{note.title | truncatechars:80}}</p>
+                    <p class="py-3 ">{{note.content | truncatechars:208}}</p>
+                    <p class=""> @{{note.user}}</p>
+                    <p class=" text-xs text-gray-500">{{note.date}}</p>
+                </a>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="h-[72vh] w-full bg-[#f6f5fa] flex justify-center items-center">
+                <img class="h-72" src="https://i.pinimg.com/564x/cb/19/91/cb19914a6a4aedfe2dca65d736ce60bb.jpg" alt="">
+            </div>
+            {% endif %}
+        </div>
+        <div class="md:w-[25%] w-[90%] flex flex-col   h-screen  md:fixed md:top-30 md:right-0 ">
+            <h2 class="text-xl font-bold mt-6">Tadays Faetured</h2>
+            <a href="" class="w-full h-60  py-6 mt-4 flex relative">
+                <div class="w-32 h-20 z-20 shadow-md bg-white flex justify-center items-center text-center">
+                    <div class="p-2">
+                        <div class="border-b border-dashed text-lg font-bold w-14 border-gray-400">Jul</div>
+                        <div class="text-lg font-bold">08</div>
+                    </div>
+                </div>
+                <div class="w-full h-full relative right-8 bottom-2 bg-pink-50 pl-14 py-4 pb-6 space-y-4">
+                    <div class="">
+                        <h2 class="tracking-widest text-xs font-medium text-pink-500 mb-1">SCIENCE</h2>
+                        <p class="text-lg font-bold">Science is the most proefficient way ..</p>
+                    </div>
+                    <p class="text-sm text-justify pr-6">A lot of has to do with technology issues (Elon Musk and Donald
+                        Trump feature prominently)..</p>
+                </div>
+            </a>
+            <div
+                class="px-8 py-2 mx-8 rounded-lg overflow-y-scroll h-60 border-t border-dashed border-gray-300 flex flex-col justify-start items-center gap-2 bg-white">
+                {% for user in recent_users %}
+                <div class=" px-4 py-3 flex justify-between items-center bg-gray-100 rounded w-full">
+                    <p>@{{user.username}}</p>
+                    {% if request.user != user %}
+                    {% if user in request.user.f_by.all %}
+                    <a href="{% url 'toggle_follow' user.id %}" class="follow-toggle-button">Unfollow</a>
+                    {% else %}
+                    <a href="{% url 'toggle_follow' user.id %}" class="follow-toggle-button">Follow</a>
+                    {% endif %}
+                    <span class="follow-status hidden">following</span>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-screen bg-black">
+    <div class="py-20 w-full  gap-6 px-12  grid grid-cols-4  text-white">
+        {% for note in notes %}
+            <div class=" border p-6 space-y-2">
+                <p>{{note.content | truncatechars:88}}</p>
+                <p > @{{note.user}}</p>
+                <p class="my-5 text-xs text-gray-500">{{note.date}}</p>
+                <a href="/delete/{{note.id}}" class="float-right bg-white text-black   px-4 py-1">Delete</a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
+

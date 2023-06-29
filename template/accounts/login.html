@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="flex justify-center flex-col gap-4 items-center h-screen ">
+    <form action="" method="post" class="w-[30%]">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <div class="my-3">
+            <input type="submit" class="px-4 py-1 bg-black text-white rounded cursor-pointer" name="" id="">
+        </div>
+    </form>
+    <p class="text-left">Forgot password ? .. <a class="underline" href="{% url 'password_reset' %}">Reset password</a></p>
+</div>
+{% endblock content %}
